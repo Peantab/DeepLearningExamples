@@ -24,11 +24,14 @@ python -m torch.distributed.launch --nproc_per_node=8 run_pretraining.py \
             --input_dir ${DATA_DIR} \
             --config_file ./bert_config.json \
             --max_seq_length 128 \
-            --train_batch_size 512 \
+            --train_batch_size 256 \
             --learning_rate 0.000625 \
             --max_steps 1000000 --warmup_proportion 0.003 \
             --fp16 --checkpoint_activations \
             --num_steps_per_checkpoint 2000 \
             --phase1_end_step 800000 \
             --output_dir ${MODEL_DIR} \
+            --log_freq 10 \
+            --resume_from_checkpoint \
+            --resume_step 30000 \
             --do_train

@@ -310,9 +310,9 @@ def prepare_model_and_optimizer(args, device):
     if args.fp16:
 
         if args.loss_scale == 0:
-            model, optimizer = amp.initialize(model, optimizer, opt_level="O2", loss_scale="dynamic")
+            model, optimizer = amp.initialize(model, optimizer, opt_level="O1", loss_scale="dynamic")
         else:
-            model, optimizer = amp.initialize(model, optimizer, opt_level="O2", loss_scale=args.loss_scale)
+            model, optimizer = amp.initialize(model, optimizer, opt_level="O1", loss_scale=args.loss_scale)
         amp._amp_state.loss_scalers[0]._loss_scale = 2**20
 
     if args.resume_from_checkpoint:

@@ -436,7 +436,7 @@ def main():
 
     parser.add_argument("--do_lower_case",
                         action='store_true',
-                        default=True,
+                        default=False,
                         help="Whether to lower case the input text. True for uncased models, False for cased models.")
     parser.add_argument('--random_seed',
                         type=int,
