@@ -54,6 +54,8 @@ from apex.amp import _amp_state
 
 from concurrent.futures import ProcessPoolExecutor
 
+from datetime import datetime
+
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
                     datefmt='%m/%d/%Y %H:%M:%S',
                     level=logging.INFO)
@@ -529,11 +531,12 @@ def main():
                             logger.info("Total Steps:{} Final Loss = {}".format(training_steps / args.gradient_accumulation_steps, average_loss.item()))
                     elif training_steps % (args.log_freq * args.gradient_accumulation_steps) == 0:
                         if is_main_process():
-                            print("Step:{} Average Loss = {} Step Loss = {} LR {}".format(global_step, average_loss / (
+                            print("Step:{} Average Loss = {} Step Loss = {} LR {} Time: {}".format(global_step, average_loss / (
                                         args.log_freq * divisor),
                                                                                             loss.item() * args.gradient_accumulation_steps / divisor,
                                                                                             optimizer.param_groups[0][
-                                                                                                'lr']))
+                                                                                                'lr'],
+                                                                                                datetime.now().strftime("%y-%m-%d %H:%M:%S")))
                         average_loss = 0
 
                     if global_step >= args.max_steps or training_steps % (
